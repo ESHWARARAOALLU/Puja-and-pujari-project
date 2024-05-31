@@ -1,2 +1,0 @@
-# Puja and pujari project
- 
