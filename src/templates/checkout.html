@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Puja Path - Aapki Puja, Hamara Wada</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='img/logo.jpg') }}">
+
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='lib/lightbox/css/lightbox.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css') }}">
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+    <!-- Template Stylesheet -->
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/checkout.css') }}">
+
+
+</head>
+
+<body>
+    <div class="cursor"></div>
+
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-secondary" role="status"></div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Navbar start -->
+    <div class="container-fluid fixed-top">
+        <div class="topbar bg-secondary d-none d-lg-block">
+            <div class="d-flex justify-content-between">
+                <div class="top-info ps-2">
+                    <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-danger"></i> <a href="#"
+                            class="text-white">{{selected_location}}</a></small>
+                    <small class="me-3"><i class="fas fa-envelope me-2 text-danger"></i><a href="#"
+                            class="text-white">{{email}}</a></small>
+                </div>
+                <div class="top-link pe-2">
+                    <a href="#" class="text-white" onclick="showAboutPopup()">About us</a>
+                </div>
+                <div id="aboutUsPopup"
+                    style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 9999;">
+                    <div
+                        style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5); max-width: 500px; text-align: center;">
+                        <!-- Your About Us content goes here -->
+                        <h2 style="margin-bottom: 20px;">About Us</h2>
+                        <p class="card-text" style="font-size: 16px;">Explore a realm of spirituality and tradition with
+                            our
+                            platform, connecting devotees with experienced priests for meaningful rituals and
+                            ceremonies.</p>
+                        <button
+                            style="background-color: #007bff; color: #fff; border: none; padding: 10px 20px; font-size: 16px; margin-top: 20px; border-radius: 5px; cursor: pointer;"
+                            onclick="closeAboutPopup()">Close</button>
+                    </div>
+                </div>
+
+                <script>
+                    function showAboutPopup() {
+                        document.getElementById("aboutUsPopup").style.display = "block";
+                    }
+
+                    function closeAboutPopup() {
+                        document.getElementById("aboutUsPopup").style.display = "none";
+                    }
+                </script>
+            </div>
+        </div>
+        <div class="container px-0">
+            <nav class="navbar navbar-light bg-white navbar-expand-xl">
+                <a href="/" class="navbar-brand" style="display: flex; align-items: center;">
+                    <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Logo"
+                        style="height: 50px; margin-left: -10px;">
+                    <h1 class="text-secondary display-6" style="margin-left: 10px; margin-bottom: -1px;">Pooja aur
+                        Pujaree</h1>
+                </a>
+                <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars text-primary"></span>
+                </button>
+                <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                    <div class="navbar-nav mx-auto">
+                        <a href="/main" class="nav-item nav-link active">Home</a>
+                        <a href="/main#samagri" class="nav-item nav-link">Puja Samagri</a>
+                        <a href="/main#puja" class="nav-item nav-link">Puja Services</a>
+                        <a href="/temple" class="nav-item nav-link">Puja at Temple</a>
+                        <a href="/testimonial" class="nav-item nav-link">Testimonial</a>
+                        <a href="/contact" class="nav-item nav-link">Contact</a>
+                    </div>
+                    <div class="d-flex m-3 me-0">
+                        <a href="/cart" class="position-relative me-4 my-auto">
+                            <i class="fa fa-shopping-bag fa-2x" style="position: relative;">
+                                <span
+                                    style="position: absolute; top: -8px; right: -10px; background-color: green; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px;">{{
+                                    n }}</span>
+                            </i>
+                        </a>
+                        <a href="/checkout" class="my-auto me-4">
+                            <i class="fas fa-credit-card fa-2x"></i>
+                        </a>
+                        <a href="/profile" class="my-auto">
+                            <i class="fas fa-user-alt fa-2x"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+    </div>
+    <marquee>
+        {{msg}}
+    </marquee>
+
+    <!-- Navbar End -->
+
+
+    <!-- Payment Section Start -->
+    <div class="card">
+
+        <div class="card-body">
+            <div class="row upper">
+                <span><i class="fa fa-shopping-bag fa-1x"></i><a href="/cart"> Shopping bag</a></span>
+            </div>
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="left border">
+                        <div class="row">
+                            <span class="header">Payment</span>
+                            <div class="icons">
+                                <img src="https://img.icons8.com/color/48/000000/visa.png" />
+                                <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png" />
+                                <img src="https://img.icons8.com/color/48/000000/maestro.png" />
+                            </div>
+                        </div>
+                        <form>
+                            <span>Cardholder's name:</span>
+                            <input type="text" placeholder="Enter name">
+                            <span>Card Number:</span>
+                            <input type="text" placeholder="Enter Card Number">
+                            <div class="row">
+                                <div class="col-4"><span>Expiry date:</span>
+                                    <input type="text" placeholder="YY/MM">
+                                </div>
+                                <div class="col-4"><span>CVV:</span>
+                                    <input type="text" id="cvv">
+                                </div>
+                            </div>
+                            <input type="checkbox" id="save_card" class="align-left">
+                            <label for="save_card">Save card details to wallet</label>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="right border">
+                        <div class="row mt-4">
+                            <div class="col">
+                                <h4>Terms and Conditions</h4>
+                                <p><strong>Refunds:</strong> We do not provide refunds for any purchases made.</p>
+                                <p>By making payment, you agree to our terms and Conditions.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="https://godesimilk.com/wp-content/uploads/2020/08/WhatsApp-Image-2020-08-05-at-8.04.06-AM-635x1024.jpeg"
+                                    alt="Random QR Code" class="img-fluid">
+                            </div>
+                            <div class="col-md-6">
+                                <h4>You can also scan for making payment</h4>
+                            </div>
+                        </div>
+                        <!-- Order summary content here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Container for additional content -->
+        <div class="col-md-5">
+            <div class="order">
+                <div class="header">Order Summary</div>
+                <p>{{ num_items }} items</p>
+                {% for item in items %}
+                <div class="row item item-left">
+                    <div class="col-4 align-self-center"><img class="img-fluid"
+                            src="{{ url_for('static', filename=item.image) }}"></div>
+                    <div class="col-8">
+                        <div class="row"><b>₹ {{ item.price }}</b></div>
+                        <div class="row text-muted">{{ item.name }}</div>
+                        <div class="row">Qty: {{ item.quantity }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+                <hr>
+                <div class="row lower">
+                    <div class="col text-left">Subtotal</div>
+                    <div class="col text-right">₹ {{ subtotal }}</div>
+                </div>
+                <div class="row lower">
+                    <div class="col text-left">Delivery</div>
+                    <div class="col text-right">₹ {{ delivery }}</div>
+                </div>
+                <div class="row lower">
+                    <div class="col text-left"><b>Total to pay</b></div>
+                    <div class="col text-right"><b>₹ {{ total }}</b></div>
+                </div>
+                <div class="row lower">
+                    <!-- <div class="col text-left"><a href="#"><u>Add promo code</u></a></div> -->
+                </div>
+                <button class="btn">Place order</button>
+                <p class="text-muted text-center">Complimentary Shipping & Returns</p>
+            </div>
+        </div>
+
+    </div>
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5" id="contactus">
+        <div class="container py-5">
+            <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(234, 241, 8, 0.923);">
+                <div class="container">
+                    <div class="row g-4 align-items-center text-center text-lg-start">
+                        <div class="col-12 col-lg-4">
+                            <a href="/"
+                                class="navbar-brand d-flex align-items-center justify-content-center justify-content-lg-start">
+                                <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Logo"
+                                    style="height: 50px; margin-left: 5px; margin-top: -20px;">
+                                <h1 class="text-secondary display-6 ms-2 mb-0"
+                                    style="font-size: 35px; margin-top: -20px;">Pooja aur Pujaree</h1>
+                            </a>
+                        </div>
+                        <div class="col-12 col-lg-4 mt-3 mt-lg-0">
+                            <div class="position-relative mx-auto">
+                                <input class="form-control border-0 w-100 py-3 px-4 rounded-pill" type="number"
+                                    placeholder="Your Email">
+                                <button type="submit"
+                                    class="btn btn-secondary border-0 py-3 px-4 position-absolute rounded-pill text-white"
+                                    style="top: 0; right: 0;">Subscribe Now</button>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4 mt-3 mt-lg-0 text-center text-lg-start">
+                            <p style="font-size: 15px; margin-bottom: -15px;margin-left: 210px;">Designed by</p>
+                            <a href="/"
+                                class="navbar-brand d-flex align-items-center justify-content-center justify-content-lg-start">
+                                <h1 class="text-secondary display-6 ms-2 mb-0"
+                                    style="font-size: 20px;margin-right: -15px;">Ready coderS Private Limited</h1>
+                                <img src="{{ url_for('static', filename='img/readycoder.png') }}" alt="Logo"
+                                    style="height: 80px; margin-left: 10px;">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6" style="background-color: #343a40; padding: 20px; border-radius: 5px;">
+                    <div class="footer-item">
+                        <h4 class="text-light mb-3">Why People Like Us!</h4>
+                        <p class="mb-4">We provide personalized and dedicated services for all your pooja needs,
+                            ensuring a seamless and spiritual experience.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6" style="background-color: #343a40; padding: 20px; border-radius: 5px;">
+                    <div class="d-flex flex-column text-start footer-item">
+                        <h4 class="text-light mb-3" style="color: #fff;">Shop Info</h4>
+                        <a class="btn-link" style="color: #17a2b8; margin-bottom: 10px;"
+                            onclick="showPopup('About Us', 'Welcome to Pooja and Pujarri, where tradition meets spirituality. We offer a range of spiritual services to help you connect with the divine. Our experienced priests are here to guide you through every step of your spiritual journey.')">About
+                            Us</a>
+                        <a class="btn-link" style="color: #17a2b8; margin-bottom: 10px;"
+                            onclick="showPopup('Contact Us', 'If you have any questions or need assistance, feel free to reach out to us. Our support team is available 24/7 to help you with your needs.')">Contact
+                            Us</a>
+                        <a class="btn-link" style="color: #17a2b8; margin-bottom: 10px;"
+                            onclick="showPopup('Privacy Policy', 'We value your privacy and are committed to protecting your personal information. Read our policy to understand how we handle your data with care.')">Privacy
+                            Policy</a>
+                        <a class="btn-link" style="color: #17a2b8; margin-bottom: 10px;"
+                            onclick="showPopup('Terms & Conditions', 'By using our services, you agree to our terms and conditions. Read the terms carefully to understand your rights and obligations.')">Terms
+                            & Conditions</a>
+                        <a class="btn-link" style="color: #17a2b8; margin-bottom: 10px;"
+                            onclick="showPopup('Return Policy', 'Our return policy is designed to ensure you are satisfied with your purchase. Please read our return policy for detailed information.')">Return
+                            Policy</a>
+                        <a class="btn-link" style="color: #17a2b8; margin-bottom: 10px;"
+                            onclick="showPopup('FAQs & Help', 'Find answers to frequently asked questions and get the help you need. Our comprehensive FAQ section is here to assist you.')">FAQs
+                            & Help</a>
+                    </div>
+                </div>
+
+                <!-- Popup -->
+                <div id="popup"
+                    style="display: none; position: fixed; top: -50px; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 9999;">
+                    <div
+                        style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border-radius: 10px; max-width: 90%; text-align: center;">
+                        <span
+                            style="position: absolute; top: 10px; color: black; right: 10px; cursor: pointer; font-size: 20px;"
+                            onclick="closePopup()">&times;</span>
+                        <h3 id="popupTitle"></h3>
+                        <p id="popupContent" style="color: black;"></p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6" style="background-color: #343a40; padding: 20px; border-radius: 5px;">
+                    <div class="d-flex flex-column text-start footer-item">
+                        <h4 class="text-light mb-3" style="color: #17a2b8;">Account</h4>
+                        <a class="btn-link" href="/profile" style="color: #17a2b8; margin-bottom: 10px;">My Account</a>
+                        <a class="btn-link" href="/main" style="color: #17a2b8; margin-bottom: 10px;">Shop Details</a>
+                        <a class="btn-link" href="/cart" style="color: #17a2b8; margin-bottom: 10px;">Shopping Cart</a>
+                        <a class="btn-link" href="/profile" style="color: #17a2b8; margin-bottom: 10px;">Order History</a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6" style="background-color: #343a40; padding: 20px; border-radius: 5px;">
+                    <div class="footer-item">
+                        <h4 class="text-light mb-3">Contact</h4>
+                        <p>Address: HS-02, Block-F, Plot No, Sector Alpha 11, Greater Noida, Uttar Pradesh, 201306</p>
+                        <p>Email: info@poojaaurpujaree.com</p>
+                        <p>Phone: 9990218479</p>
+                        <p>Payment Accepted</p>
+                        <img src="{{ url_for('static', filename='img/payment.png') }}" class="img-fluid" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function showPopup(title, content) {
+            document.getElementById('popupTitle').innerText = title;
+            document.getElementById('popupContent').innerText = content;
+            document.getElementById('popup').style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = "none";
+        }
+    </script>
+    <!-- Footer End -->
+    <!-- Payment Section End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-success border-3 border-success rounded-circle back-to-top"><i
+            class="fa fa-arrow-up"></i></a>
+    <!-- chat bot  -->
+    <!-- <button class="chatbot-toggler">
+            <span class="material-symbols-rounded">BOT</span>
+            <span class="material-symbols-outlined">X</span>
+        </button>
+        <div class="chatbot">
+            <header>
+                <h2>Chatbot</h2>
+                <span class="close-btn material-symbols-outlined">X</span>
+            </header>
+            <ul class="chatbox">
+                <li class="chat incoming">
+                    <span class="material-symbols-rounded" style="font-size: 24px; color: blue;">💬</span>
+                    <p>Hi there 👋<br>How can I help you today?</p>
+                </li>
+            </ul>
+            <div class="chat-input">
+                <textarea placeholder="Enter a message..." spellcheck="false" required></textarea>
+                <span id="send-btn" class="material-symbols-rounded">send</span>
+            </div>
+            <button class="end-chat-btn"
+                style="position: absolute; bottom: 10px; right: 20px; display: none; background-color: gold; color: black; border: none; padding: 10px 20px; border-radius: 5px;">End
+                Chat</button>
+
+        </div> -->
+    <!-- chat bot end  -->
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='lib/easing/easing.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/waypoints/waypoints.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/lightbox/js/lightbox.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/owlcarousel/owl.carousel.min.js') }}"></script>
+
+    <!-- Template Javascript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cursor = document.querySelector('.cursor');
+
+            document.addEventListener('mousemove', function (e) {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+
+            document.addEventListener('mouseenter', function () {
+                cursor.style.display = 'block';
+            });
+
+            document.addEventListener('mouseleave', function () {
+                cursor.style.display = 'none';
+            });
+        });
+    </script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>
